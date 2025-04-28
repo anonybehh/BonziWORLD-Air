@@ -25566,18 +25566,11 @@ function copyTempDouble(ptr) {
         Module['preloadPlugins'].push(audioPlugin);
         // Canvas event setup
         var canvas = Module['canvas'];
-        canvas.requestPointerLock = canvas['requestPointerLock'] ||
-                                    canvas['mozRequestPointerLock'] ||
-                                    canvas['webkitRequestPointerLock'];
-        canvas.exitPointerLock = document['exitPointerLock'] ||
-                                 document['mozExitPointerLock'] ||
-                                 document['webkitExitPointerLock'] ||
-                                 function(){}; // no-op if function does not exist
+        canvas.requestPointerLock = canvas['requestPointerLock'] || canvas['mozRequestPointerLock'] || canvas['webkitRequestPointerLock'];
+        canvas.exitPointerLock = document['exitPointerLock'] || document['mozExitPointerLock'] || document['webkitExitPointerLock'] || function(){}; // no-op if function does not exist
         canvas.exitPointerLock = canvas.exitPointerLock.bind(document);
         function pointerLockChange() {
-          Browser.pointerLock = document['pointerLockElement'] === canvas ||
-                                document['mozPointerLockElement'] === canvas ||
-                                document['webkitPointerLockElement'] === canvas;
+          Browser.pointerLock = document['pointerLockElement'] === canvas || document['mozPointerLockElement'] === canvas || document['webkitPointerLockElement'] === canvas;
         }
         document.addEventListener('pointerlockchange', pointerLockChange, false);
         document.addEventListener('mozpointerlockchange', pointerLockChange, false);
@@ -25646,12 +25639,8 @@ function copyTempDouble(ptr) {
         var canvas = Module['canvas'];
         function fullScreenChange() {
           Browser.isFullScreen = false;
-          if ((document['webkitFullScreenElement'] || document['webkitFullscreenElement'] ||
-               document['mozFullScreenElement'] || document['mozFullscreenElement'] ||
-               document['fullScreenElement'] || document['fullscreenElement']) === canvas) {
-            canvas.cancelFullScreen = document['cancelFullScreen'] ||
-                                      document['mozCancelFullScreen'] ||
-                                      document['webkitCancelFullScreen'];
+          if ((document['webkitFullScreenElement'] || document['webkitFullscreenElement'] || document['mozFullScreenElement'] || document['mozFullscreenElement'] || document['fullScreenElement'] || document['fullscreenElement']) === canvas) {
+            canvas.cancelFullScreen = document['cancelFullScreen'] || document['mozCancelFullScreen'] || document['webkitCancelFullScreen'];
             canvas.cancelFullScreen = canvas.cancelFullScreen.bind(document);
             if (Browser.lockPointer) canvas.requestPointerLock();
             Browser.isFullScreen = true;
@@ -25667,21 +25656,14 @@ function copyTempDouble(ptr) {
           document.addEventListener('mozfullscreenchange', fullScreenChange, false);
           document.addEventListener('webkitfullscreenchange', fullScreenChange, false);
         }
-        canvas.requestFullScreen = canvas['requestFullScreen'] ||
-                                   canvas['mozRequestFullScreen'] ||
-                                   (canvas['webkitRequestFullScreen'] ? function() { canvas['webkitRequestFullScreen'](Element['ALLOW_KEYBOARD_INPUT']) } : null);
+        canvas.requestFullScreen = canvas['requestFullScreen'] || canvas['mozRequestFullScreen'] || (canvas['webkitRequestFullScreen'] ? function() { canvas['webkitRequestFullScreen'](Element['ALLOW_KEYBOARD_INPUT']) } : null);
         canvas.requestFullScreen();
       },requestAnimationFrame:function requestAnimationFrame(func) {
         if (typeof window === 'undefined') { // Provide fallback to setTimeout if window is undefined (e.g. in Node.js)
           setTimeout(func, 1000/60);
         } else {
           if (!window.requestAnimationFrame) {
-            window.requestAnimationFrame = window['requestAnimationFrame'] ||
-                                           window['mozRequestAnimationFrame'] ||
-                                           window['webkitRequestAnimationFrame'] ||
-                                           window['msRequestAnimationFrame'] ||
-                                           window['oRequestAnimationFrame'] ||
-                                           window['setTimeout'];
+            window.requestAnimationFrame = window['requestAnimationFrame'] || window['mozRequestAnimationFrame'] || window['webkitRequestAnimationFrame'] || window['msRequestAnimationFrame'] || window['oRequestAnimationFrame'] || window['setTimeout'];
           }
           window.requestAnimationFrame(func);
         }
