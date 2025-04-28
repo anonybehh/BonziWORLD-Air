@@ -14,7 +14,17 @@ html {
   left: 0;
   z-index: 999;
 }
-
+.bonzi .bubble .close-bubble:hover, .bonzi .bubble .close-bubble:active 
+{
+  color: #212121;opacity: 1;
+}
+.bonzi 
+.bubble:hover 
+.close-bubble, 
+.bonzi 
+.bubble:active 
+.close-bubble {
+  color: #212121;opacity: 1;}.bonzi .bubble.video:hover .close-bubble, .bonzi .bubble.video:active .close-bubble, .bonzi .bubble.image:hover .close-bubble, .bonzi .bubble.image:active .close-bubble, .bonzi .bubble.media:hover .close-bubble, .bonzi .bubble.media:active .close-bubble {color: #f39c12;opacity: 0.7;}.bonzi .bubble.video .close-bubble, .bonzi .bubble.image .close-bubble, .bonzi .bubble.media .close-bubble {font-size: 30px;top: 12px;right: 14px;color: #bdc3c7;opacity: 0.5;}.bonzi .bubble.video .close-bubble:hover, .bonzi .bubble.video .close-bubble:active, .bonzi .bubble.image .close-bubble:hover, .bonzi .bubble.image .close-bubble:active, .bonzi .bubble.media .close-bubble:hover, .bonzi .bubble.media .close-bubble:active {color: #f1c40f;opacity: 1;}
 .xp_dialog,
 .message_cont {
   background: #ffffe1;

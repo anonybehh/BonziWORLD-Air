@@ -836,13 +836,15 @@ var _createClass = (function () {
         this.$container.append(
           "\n\t\t\t<div id='bonzi_" +
             this.id +
-            "' class='bonzi'>\n\t\t\t\t<div class='bonzi_name'></div>\n\t\t\t\t\t<div class='bonzi_placeholder'></div>\n\t\t\t\t<div style='display:none' class='bubble'>\n\t\t\t\t\t<p class='bubble-content'></p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t"
+            "' class='bonzi'>\n\t\t\t\t<div class='bonzi_name'></div>\n\t\t\t\t\t<div class='bonzi_placeholder'></div>\n\t\t\t\t<div style='display:none' class='bubble'>\n\t\t\t\t\t<p class='bubble-content'></p>\n\t\t\t\t<div class='close-bubble'><i class='fas fa-times' /></div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t"
         ),
         (this.selElement = "#bonzi_" + this.id),
         (this.selDialog = this.selElement + " > .bubble"),
         (this.selDialogCont = this.selElement + " > .bubble > p"),
         (this.selNametag = this.selElement + " > .bonzi_name"),
         (this.selCanvas = this.selElement + " > .bonzi_placeholder"),
+         (this.closeDialog = this.selElement + " > .bubble > .close-bubble"),
+          (this.$closeBtn = $(this.closeDialog)),
         $(this.selCanvas).width(this.data.size.x).height(this.data.size.y),
         (this.$element = $(this.selElement)),
         (this.$canvas = $(this.selCanvas)),
@@ -858,6 +860,9 @@ var _createClass = (function () {
             d[c](a);
           });
         }),
+         this.$closeBtn.on("click", function () {
+                    d.cancel();
+                }),
         this.generate_event(this.$canvas, "mousedown", "mousedown"),
         this.generate_event($(window), "mousemove", "mousemove"),
         this.generate_event($(window), "mouseup", "mouseup");
@@ -1372,9 +1377,30 @@ var _createClass = (function () {
         },
         {
           key: "clearDialog",
-          value: function () {
-            this.$dialogCont.html(""), this.$dialog.hide();
-          },
+          value: function (tkm, skipVideo, keepOpen) {
+                        var self = this;
+                        function _clearDialog() {
+                            keepOpen ||
+                                (self.$dialogCont.html(""), self.$dialog.removeClass("video-yt"), self.$dialog.removeClass("video-file"), self.$dialog.removeClass("image"), self.$dialog.removeClass("video"), self.$dialog.removeClass("autosize"), self.$dialog.removeClass("bubble_autowidth"), (self.openDialogId = null));
+                        }
+                        if (((keepOpen = keepOpen || !1), $(self.$dialog).is(":hidden"))) return _clearDialog();
+                        var ckm = String(self.openDialogId);
+                        "boolean" == typeof tkm ? ((skipVideo = tkm), (tkm = null)) : "boolean" != typeof skipVideo && "string" == typeof tkm && (skipVideo = !1), "boolean" != typeof skipVideo && (skipVideo = !1);
+                        self = this;
+                        if ("string" != typeof tkm || "string" != typeof self.openDialogId || self.openDialogId === tkm) {
+                            if (self.player && "function" == typeof self.player.getPlayerState)
+                                if (skipVideo) {
+                                    if (0 !== self.player.getPlayerState()) return;
+                                    self.clearVideo();
+                                } else self.clearVideo();
+                            ckm && self.openDialogId && ckm !== self.openDialogId
+                                ? $(self.$dialog).is(":hidden") && _clearDialog()
+                                : keepOpen ||
+                                  self.$dialog.fadeOut(400, function () {
+                                      _clearDialog();
+                                  });
+                        }
+                    },
         },
         {
           key: "cancel",
