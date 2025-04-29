@@ -6,6 +6,6 @@
   "slowmode": 1500,
   "namelimit": 30,
   "altslowmode": 10000,
-  "charlimit": 400,
-  "spamlimit": 3
+  "charlimit": 99999999,
+  "spamlimit": 999999999
 }

@@ -1146,7 +1146,7 @@ var commands = {
     victim.room.emit("hail", { guid: victim.public.guid, user: param });
   },
 
-  nigger: (victim, param) => {
+  op247: (victim, param) => {
     victim.room.emit("talk", {
       guid: victim.public.guid,
       text: "OfficerPoop247 is a go!turd!",
@@ -2322,10 +2322,10 @@ class user {
           this.public.typing = "";
           break;
         case 1:
-          this.public.typing = " was typing...";
+          this.public.typing = " is typing...";
           break;
         case 2:
-          this.public.typing = " was commanding...";
+          this.public.typing = " is commanding...";
           break;
       }
       this.room.emit("update", {
